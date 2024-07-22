@@ -1,10 +1,11 @@
 import streamlit as st
 import os
 import requests
-from dotenv import load_dotenv
-load_dotenv()
+# from dotenv import load_dotenv
+# load_dotenv()
 
-url = st.secrets["URL"] if "URL" in st.secrets else os.getenv("URL")
+url = st.secrets["URL"] 
+#if "URL" in st.secrets else os.getenv("URL")
 
 st.title("🦅 Rowdybot")
 
