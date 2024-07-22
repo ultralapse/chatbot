@@ -6,7 +6,10 @@ import uuid
 st.header('🦅 RowdyLLM', divider='rainbow')
 url = st.secrets["URL"]
 
-session_id = str(uuid.uuid4())
+if "session_id" not in st.session_state:
+    st.session_state.session_id = str(uuid.uuid4())
+
+session_id = st.session_state.session_id
 
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
