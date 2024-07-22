@@ -1,13 +1,12 @@
 import streamlit as st
 import os
 import requests
-# from dotenv import load_dotenv
-# load_dotenv()
+import uuid
 
-url = st.secrets["URL"] 
-#if "URL" in st.secrets else os.getenv("URL")
+st.header('🦅 RowdyLLM', divider='rainbow')
+url = st.secrets["URL"]
 
-st.title("🦅 Rowdybot")
+session_id = str(uuid.uuid4())
 
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
@@ -18,7 +17,7 @@ for msg in st.session_state.messages:
 if prompt := st.chat_input():
     st.session_state.messages.append({"role": "user", "content": prompt})
     st.chat_message("user").write(prompt)
-    data = {"user_message": prompt}
+    data = {"user_message": prompt, "session_id": session_id}
     response = requests.post(url, json=data)
     msg = response.json()["message"]
     st.session_state.messages.append({"role": "assistant", "content": msg})
